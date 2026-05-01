@@ -1,0 +1,269 @@
+[2026-05-01T18:56:36.352+0000] {processor.py:157} INFO - Started process (PID=172) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T18:56:36.353+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T18:56:36.355+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:56:36.354+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:56:37.303+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:56:37.295+0000] {dagbag.py:347} ERROR - Failed to import: /opt/airflow/dags/main_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dagbag.py", line 343, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/opt/airflow/dags/main_dag.py", line 36, in <module>
+    with DAG(
+         ^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 572, in __init__
+    self.timetable = create_timetable(schedule_interval, self.timezone)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 216, in create_timetable
+    return CronDataIntervalTimetable(interval, timezone)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/timetables/_cron.py", line 60, in __init__
+    descriptor = ExpressionDescriptor(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionDescriptor.py", line 76, in __init__
+    self._expression_parts = parser.parse()
+                             ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionParser.py", line 84, in parse
+    raise FormatException(
+cron_descriptor.Exception.FormatException: Error: Expression only has 1 parts.  At least 5 part are required.
+[2026-05-01T18:56:37.303+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:56:37.334+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.994 seconds
+[2026-05-01T18:57:07.752+0000] {processor.py:157} INFO - Started process (PID=179) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T18:57:07.753+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T18:57:07.754+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:57:07.754+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:57:08.656+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:57:08.650+0000] {dagbag.py:347} ERROR - Failed to import: /opt/airflow/dags/main_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dagbag.py", line 343, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/opt/airflow/dags/main_dag.py", line 36, in <module>
+    with DAG(
+         ^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 572, in __init__
+    self.timetable = create_timetable(schedule_interval, self.timezone)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 216, in create_timetable
+    return CronDataIntervalTimetable(interval, timezone)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/timetables/_cron.py", line 60, in __init__
+    descriptor = ExpressionDescriptor(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionDescriptor.py", line 76, in __init__
+    self._expression_parts = parser.parse()
+                             ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionParser.py", line 84, in parse
+    raise FormatException(
+cron_descriptor.Exception.FormatException: Error: Expression only has 1 parts.  At least 5 part are required.
+[2026-05-01T18:57:08.657+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:57:08.685+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.941 seconds
+[2026-05-01T18:57:39.055+0000] {processor.py:157} INFO - Started process (PID=185) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T18:57:39.057+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T18:57:39.058+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:57:39.058+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:57:40.151+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:57:40.139+0000] {dagbag.py:347} ERROR - Failed to import: /opt/airflow/dags/main_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dagbag.py", line 343, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/opt/airflow/dags/main_dag.py", line 36, in <module>
+    with DAG(
+         ^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 572, in __init__
+    self.timetable = create_timetable(schedule_interval, self.timezone)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 216, in create_timetable
+    return CronDataIntervalTimetable(interval, timezone)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/timetables/_cron.py", line 60, in __init__
+    descriptor = ExpressionDescriptor(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionDescriptor.py", line 76, in __init__
+    self._expression_parts = parser.parse()
+                             ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionParser.py", line 84, in parse
+    raise FormatException(
+cron_descriptor.Exception.FormatException: Error: Expression only has 1 parts.  At least 5 part are required.
+[2026-05-01T18:57:40.151+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:57:40.175+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 1.146 seconds
+[2026-05-01T18:58:10.333+0000] {processor.py:157} INFO - Started process (PID=191) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T18:58:10.336+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T18:58:10.337+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:58:10.336+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:58:11.021+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:58:11.016+0000] {dagbag.py:347} ERROR - Failed to import: /opt/airflow/dags/main_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dagbag.py", line 343, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/opt/airflow/dags/main_dag.py", line 36, in <module>
+    with DAG(
+         ^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 572, in __init__
+    self.timetable = create_timetable(schedule_interval, self.timezone)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 216, in create_timetable
+    return CronDataIntervalTimetable(interval, timezone)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/timetables/_cron.py", line 60, in __init__
+    descriptor = ExpressionDescriptor(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionDescriptor.py", line 76, in __init__
+    self._expression_parts = parser.parse()
+                             ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionParser.py", line 84, in parse
+    raise FormatException(
+cron_descriptor.Exception.FormatException: Error: Expression only has 1 parts.  At least 5 part are required.
+[2026-05-01T18:58:11.022+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:58:11.041+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.727 seconds
+[2026-05-01T18:58:41.436+0000] {processor.py:157} INFO - Started process (PID=197) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T18:58:41.438+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T18:58:41.439+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:58:41.438+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:58:42.079+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:58:42.077+0000] {dagbag.py:347} ERROR - Failed to import: /opt/airflow/dags/main_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dagbag.py", line 343, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/opt/airflow/dags/main_dag.py", line 36, in <module>
+    with DAG(
+         ^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 572, in __init__
+    self.timetable = create_timetable(schedule_interval, self.timezone)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 216, in create_timetable
+    return CronDataIntervalTimetable(interval, timezone)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/timetables/_cron.py", line 60, in __init__
+    descriptor = ExpressionDescriptor(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionDescriptor.py", line 76, in __init__
+    self._expression_parts = parser.parse()
+                             ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionParser.py", line 84, in parse
+    raise FormatException(
+cron_descriptor.Exception.FormatException: Error: Expression only has 1 parts.  At least 5 part are required.
+[2026-05-01T18:58:42.079+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:58:42.102+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.679 seconds
+[2026-05-01T18:59:12.468+0000] {processor.py:157} INFO - Started process (PID=203) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T18:59:12.470+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T18:59:12.472+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:12.471+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:59:13.143+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:13.140+0000] {dagbag.py:347} ERROR - Failed to import: /opt/airflow/dags/main_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dagbag.py", line 343, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/opt/airflow/dags/main_dag.py", line 36, in <module>
+    with DAG(
+         ^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 572, in __init__
+    self.timetable = create_timetable(schedule_interval, self.timezone)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/dag.py", line 216, in create_timetable
+    return CronDataIntervalTimetable(interval, timezone)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/timetables/_cron.py", line 60, in __init__
+    descriptor = ExpressionDescriptor(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionDescriptor.py", line 76, in __init__
+    self._expression_parts = parser.parse()
+                             ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/cron_descriptor/ExpressionParser.py", line 84, in parse
+    raise FormatException(
+cron_descriptor.Exception.FormatException: Error: Expression only has 1 parts.  At least 5 part are required.
+[2026-05-01T18:59:13.143+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:59:13.160+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.703 seconds
+[2026-05-01T18:59:18.269+0000] {processor.py:157} INFO - Started process (PID=209) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T18:59:18.272+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T18:59:18.273+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:18.272+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:59:18.761+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:59:18.900+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:18.900+0000] {manager.py:501} INFO - Created Permission View: can edit on DAG:crypto_ingestion_dag
+[2026-05-01T18:59:18.904+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:18.904+0000] {manager.py:501} INFO - Created Permission View: can delete on DAG:crypto_ingestion_dag
+[2026-05-01T18:59:18.905+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:18.905+0000] {manager.py:501} INFO - Created Permission View: can read on DAG:crypto_ingestion_dag
+[2026-05-01T18:59:18.913+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:18.913+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T18:59:18.917+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:18.917+0000] {dag.py:2929} INFO - Creating ORM DAG for crypto_ingestion_dag
+[2026-05-01T18:59:18.921+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:18.921+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T18:58:00+00:00, run_after=2026-05-01T18:59:00+00:00
+[2026-05-01T18:59:18.927+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.664 seconds
+[2026-05-01T18:59:49.271+0000] {processor.py:157} INFO - Started process (PID=215) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T18:59:49.275+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T18:59:49.276+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:49.275+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:59:49.704+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T18:59:49.724+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:49.724+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T18:59:49.734+0000] {logging_mixin.py:151} INFO - [2026-05-01T18:59:49.734+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T18:58:00+00:00, run_after=2026-05-01T18:59:00+00:00
+[2026-05-01T18:59:49.741+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.474 seconds
+[2026-05-01T19:00:19.874+0000] {processor.py:157} INFO - Started process (PID=221) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:00:19.877+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:00:19.879+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:00:19.878+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:00:20.330+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:00:20.348+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:00:20.348+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:00:20.357+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:00:20.357+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T18:59:00+00:00, run_after=2026-05-01T19:00:00+00:00
+[2026-05-01T19:00:20.364+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.504 seconds
+[2026-05-01T19:00:50.712+0000] {processor.py:157} INFO - Started process (PID=227) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:00:50.715+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:00:50.716+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:00:50.716+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:00:51.139+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:00:51.158+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:00:51.158+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:00:51.167+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:00:51.167+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T18:59:00+00:00, run_after=2026-05-01T19:00:00+00:00
+[2026-05-01T19:00:51.174+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.472 seconds
+[2026-05-01T19:01:09.464+0000] {processor.py:157} INFO - Started process (PID=233) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:01:09.466+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:01:09.472+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:01:09.467+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:01:09.970+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:01:09.993+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:01:09.993+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:01:10.002+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:01:10.002+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T19:00:00+00:00, run_after=2026-05-01T19:01:00+00:00
+[2026-05-01T19:01:10.009+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.556 seconds
+[2026-05-01T19:01:11.940+0000] {processor.py:157} INFO - Started process (PID=239) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:01:11.941+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:01:11.942+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:01:11.942+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:01:12.226+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:01:12.238+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:01:12.238+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:01:12.246+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:01:12.246+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T19:00:00+00:00, run_after=2026-05-01T19:01:00+00:00
+[2026-05-01T19:01:12.254+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.320 seconds
+[2026-05-01T19:01:42.473+0000] {processor.py:157} INFO - Started process (PID=245) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:01:42.475+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:01:42.477+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:01:42.476+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:01:43.062+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:01:43.088+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:01:43.088+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:01:43.102+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:01:43.102+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T19:00:00+00:00, run_after=2026-05-01T19:01:00+00:00
+[2026-05-01T19:01:43.119+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.656 seconds
+[2026-05-01T19:02:13.492+0000] {processor.py:157} INFO - Started process (PID=254) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:02:13.495+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:02:13.498+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:02:13.496+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:02:14.059+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:02:14.095+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:02:14.095+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:02:14.108+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:02:14.108+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T19:01:00+00:00, run_after=2026-05-01T19:02:00+00:00
+[2026-05-01T19:02:14.120+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.637 seconds
+[2026-05-01T19:02:44.255+0000] {processor.py:157} INFO - Started process (PID=266) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:02:44.258+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:02:44.261+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:02:44.259+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:02:45.136+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:02:45.163+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:02:45.163+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:02:45.183+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:02:45.183+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T19:02:00+00:00, run_after=2026-05-01T19:03:00+00:00
+[2026-05-01T19:02:45.191+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.946 seconds
+[2026-05-01T19:03:15.617+0000] {processor.py:157} INFO - Started process (PID=275) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:03:15.619+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:03:15.620+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:03:15.619+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:03:16.170+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:03:16.201+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:03:16.201+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:03:16.219+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:03:16.219+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T19:03:00+00:00, run_after=2026-05-01T19:04:00+00:00
+[2026-05-01T19:03:16.227+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.620 seconds
+[2026-05-01T19:03:46.580+0000] {processor.py:157} INFO - Started process (PID=281) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:03:46.583+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:03:46.585+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:03:46.583+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:03:47.087+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:03:47.107+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:03:47.107+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:03:47.116+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:03:47.116+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T19:03:00+00:00, run_after=2026-05-01T19:04:00+00:00
+[2026-05-01T19:03:47.123+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.550 seconds
+[2026-05-01T19:04:17.236+0000] {processor.py:157} INFO - Started process (PID=290) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:04:17.239+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:04:17.240+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:04:17.239+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:04:17.806+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:04:17.826+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:04:17.826+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:04:17.836+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:04:17.836+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T19:04:00+00:00, run_after=2026-05-01T19:05:00+00:00
+[2026-05-01T19:04:17.843+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.614 seconds
+[2026-05-01T19:04:48.232+0000] {processor.py:157} INFO - Started process (PID=296) to work on /opt/airflow/dags/main_dag.py
+[2026-05-01T19:04:48.234+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2026-05-01T19:04:48.235+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:04:48.234+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:04:48.776+0000] {processor.py:839} INFO - DAG(s) dict_keys(['crypto_ingestion_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2026-05-01T19:04:48.792+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:04:48.792+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2026-05-01T19:04:48.801+0000] {logging_mixin.py:151} INFO - [2026-05-01T19:04:48.801+0000] {dag.py:3677} INFO - Setting next_dagrun for crypto_ingestion_dag to 2026-05-01T19:04:00+00:00, run_after=2026-05-01T19:05:00+00:00
+[2026-05-01T19:04:48.809+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.594 seconds

@@ -37,7 +37,7 @@ with DAG(
     'crypto_ingestion_dag',
     default_args=default_args,
     description='Collect BTC prices every minute',
-    schedule_interval='@minute',
+    schedule='* * * * *',
     catchup=False
 ) as dag:
 

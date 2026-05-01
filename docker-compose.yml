@@ -9,11 +9,23 @@ services:
     ports:
       - "5432:5432"
 
+  airflow-init:
+    image: apache/airflow:2.7.0-python3.11
+    # Команда инициализации: создает базу и юзера airflow/airflow
+    command: >
+      bash -c "airflow db init &&
+      airflow users create --username airflow --firstname Bogdan --lastname Leonov --role Admin --email admin@example.com --password airflow"
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://user:password@db/crypto_db
+    depends_on:
+      - db
+
   airflow-webserver:
     image: apache/airflow:2.7.0-python3.11
     command: webserver
     depends_on:
-      - db
+      airflow-init:
+        condition: service_completed_successfully
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -28,10 +40,12 @@ services:
     image: apache/airflow:2.7.0-python3.11
     command: scheduler
     depends_on:
-      - db
+      airflow-init:
+        condition: service_completed_successfully
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
     environment:
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://user:password@db/crypto_db
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - _PIP_ADDITIONAL_REQUIREMENTS=ccxt psycopg2-binary
