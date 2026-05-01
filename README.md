@@ -9,15 +9,12 @@
 Подробный план реализации разбит на 5 этапов. Вы можете отслеживать прогресс в файле:
 [ROADMAP.md](./ROADMAP.md)
 
-### Краткое содержание этапов:
-1.  **Ingestion:** Сбор данных (CCXT, PostgreSQL, Docker).
-2.  **Orchestration:** Автоматизация запусков (Apache Airflow).
-3.  **Transformation:** Моделирование данных (dbt).
-4.  **OLAP:** Аналитическое хранилище (ClickHouse).
-5.  **Quality & CI/CD:** Тестирование и автоматизация (Great Expectations, GitHub Actions).
+### Статус проекта
+- [x] Этап 1: Ingestion (Python + CCXT + Postgres + Docker) — **Готово**
+- [ ] Этап 2: Orchestration (Airflow) — **В процессе**
 
-## Стек технологий
-- **Languages:** Python, SQL
-- **Database:** PostgreSQL, ClickHouse
-- **Tools:** Docker, Airflow, dbt, Great Expectations
-- **CI/CD:** GitHub Actions
+## Текущий стек
+- **Data Ingestion:** CCXT, Pydantic
+- **Database:** PostgreSQL 18
+- **Orchestration:** Apache Airflow
+- **Containerization:** Docker, Docker Compose
