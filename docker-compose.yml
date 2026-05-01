@@ -1,14 +1,37 @@
+version: '3.8'
 services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: crypto_db  # <-- Важно!
+      POSTGRES_DB: crypto_db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
 
-  ingestor:
-    build: .
+  airflow-webserver:
+    image: apache/airflow:2.7.0-python3.11
+    command: webserver
     depends_on:
       - db
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://user:password@db/crypto_db
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - _PIP_ADDITIONAL_REQUIREMENTS=ccxt psycopg2-binary
+    ports:
+      - "8080:8080"
+
+  airflow-scheduler:
+    image: apache/airflow:2.7.0-python3.11
+    command: scheduler
+    depends_on:
+      - db
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://user:password@db/crypto_db
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
