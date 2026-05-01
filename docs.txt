@@ -1,0 +1,2 @@
+enter db:
+docker exec -it $(docker ps -qf "name=db") psql -U user -d crypto_db
