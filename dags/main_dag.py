@@ -33,6 +33,25 @@ def fetch_and_save():
     conn.close()
     print(f"Successfully saved price: {price}")
 
+def create_table_if_not_exists():
+    conn = psycopg2.connect(
+        host='db',
+        database='crypto_db',
+        user='user',
+        password='password'
+    )
+    cur = conn.cursor()
+    cur.execute(
+        "CREATE TABLE IF NOT EXISTS btc_prices(" \
+        "id SERIAL PRIMARY KEY," \
+        "timestamp TIMESTAMP," \
+        "price DECIMAL)"
+    )
+    conn.commit()
+    cur.close()
+    conn.close()
+    print(f"Successfully created table btc_price")
+
 with DAG(
     'crypto_ingestion_dag',
     default_args=default_args,
@@ -40,8 +59,15 @@ with DAG(
     schedule='* * * * *',
     catchup=False
 ) as dag:
+    
+    create_table = PythonOperator(
+        task_id='create_table_btc_prices',
+        python_callable=create_table_if_not_exists
+    )
 
     get_crypto_data = PythonOperator(
         task_id='fetch_btc_price',
         python_callable=fetch_and_save
     )
+
+    create_table >> get_crypto_data
