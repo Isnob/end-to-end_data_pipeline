@@ -53,6 +53,8 @@ airflow / airflow
 
 DAG `crypto_ingestion_dag` запускается каждые 15 минут и сохраняет цены `BTC/USDT` и `ETH/USDT` с Binance в таблицу `raw_assets`.
 
+Старый standalone ingestion из Этапа 1 перенесен в `legacy/`. Актуальная точка запуска проекта - Airflow через `docker compose`.
+
 Текущая raw-схема:
 
 ```sql

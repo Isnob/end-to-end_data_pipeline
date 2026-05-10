@@ -10,7 +10,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 4. Копируем наш скрипт внутрь
-COPY main.py .
+COPY legacy/main.py .
 
 # 5. Команда, которую нужно выполнить при включении этого «компьютера»
 CMD ["python", "main.py"]
