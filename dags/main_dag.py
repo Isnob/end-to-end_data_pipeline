@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -10,7 +10,6 @@ default_args = {
     'depends_on_past': False,
     'start_date': datetime(2026, 5, 1),
     'retries': 0,
-    'retry_delay': timedelta(minutes=5),
 }
 
 DB_CONFIG = {
@@ -28,7 +27,7 @@ def fetch_and_save():
 
     with psycopg2.connect(**DB_CONFIG) as conn:
         with conn.cursor() as cur:
-            cur.execute("SELECT pg_advisory_xact_lock(9021001)")
+            cur.execute("SELECT pg_advisory_xact_lock(1)")
             cur.execute(
                 """
                 CREATE TABLE IF NOT EXISTS btc_prices (

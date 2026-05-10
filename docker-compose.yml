@@ -23,7 +23,7 @@ services:
     ports:
       - "5433:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user -d crypto_db"]
+      test: [ "CMD-SHELL", "pg_isready -U user -d crypto_db" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -32,8 +32,7 @@ services:
     <<: *airflow-image
     # Команда инициализации: создает базу и юзера airflow/airflow
     command: >
-      bash -c "airflow db migrate &&
-      (airflow users create --username airflow --firstname Bogdan --lastname Leonov --role Admin --email admin@example.com --password airflow || true)"
+      bash -c "airflow db migrate && (airflow users create --username airflow --firstname Bogdan --lastname Leonov --role Admin --email admin@example.com --password airflow || true)"
     environment:
       <<: *airflow-env
     depends_on:
