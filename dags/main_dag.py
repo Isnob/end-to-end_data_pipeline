@@ -21,7 +21,18 @@ DB_CONFIG = {
     'password': 'password',
 }
 
-SYMBOLS = ('BTC/USDT', 'ETH/USDT')
+SYMBOLS = (
+    'BTC/USDT',
+    'ETH/USDT',
+    'BNB/USDT',
+    'SOL/USDT',
+    'XRP/USDT',
+    'ADA/USDT',
+    'DOGE/USDT',
+    'TON/USDT',
+    'DOT/USDT',
+    'LINK/USDT',
+)
 
 
 def fetch_and_save():
