@@ -17,6 +17,7 @@
 - **Data Ingestion:** CCXT
 - **Database:** PostgreSQL 15
 - **Orchestration:** Apache Airflow
+- **Transformation:** dbt
 - **Containerization:** Docker, Docker Compose
 
 ## Локальный запуск на сервере
@@ -73,3 +74,37 @@ CREATE TABLE IF NOT EXISTS raw_assets (
 ```bash
 docker compose exec db psql -U user -d crypto_db
 ```
+
+## Ручной запуск dbt
+
+dbt-проект находится в папке `dbt/`. Пока dbt запускается вручную, без Airflow.
+
+Установка dbt:
+
+```bash
+python3 -m pip install -r requirements-dbt.txt
+```
+
+Проверка подключения:
+
+```bash
+cd dbt
+dbt debug --profiles-dir .
+```
+
+Сборка моделей:
+
+```bash
+dbt run --profiles-dir .
+```
+
+Запуск тестов:
+
+```bash
+dbt test --profiles-dir .
+```
+
+Текущие dbt-модели:
+
+- `stg_asset_prices` - staging view поверх `public.raw_assets`
+- `mart_asset_prices_daily` - дневная аналитическая таблица по `exchange` и `symbol`

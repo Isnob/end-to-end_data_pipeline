@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_asset_prices
+    description: Clean staging model for crypto asset prices.
+    columns:
+      - name: raw_asset_id
+        description: Primary key from public.raw_assets.
+        tests:
+          - not_null
+          - unique
+      - name: exchange
+        description: Exchange identifier from ccxt.
+        tests:
+          - not_null
+      - name: symbol
+        description: Trading pair symbol.
+        tests:
+          - not_null
+      - name: fetched_at
+        description: Timestamp when the ticker was fetched.
+        tests:
+          - not_null
+      - name: price
+        description: Last traded price.
+        tests:
+          - not_null
+      - name: raw_payload
+        description: Full raw ticker payload as JSONB.
+        tests:
+          - not_null

@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: public
+    tables:
+      - name: raw_assets
+        description: Raw crypto asset prices collected by the Airflow ingestion DAG.
+        columns:
+          - name: id
+            description: Surrogate key generated in Postgres.
+            tests:
+              - not_null
+              - unique
+          - name: exchange
+            description: Exchange identifier from ccxt.
+            tests:
+              - not_null
+          - name: symbol
+            description: Trading pair symbol, for example BTC/USDT.
+            tests:
+              - not_null
+          - name: fetched_at
+            description: Timestamp when the ticker was fetched.
+            tests:
+              - not_null
+          - name: price
+            description: Last traded price returned by the exchange.
+            tests:
+              - not_null
+          - name: raw_payload
+            description: Full raw ticker payload as JSONB.
+            tests:
+              - not_null

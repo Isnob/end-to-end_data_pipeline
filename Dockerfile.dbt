@@ -1,0 +1,8 @@
+FROM python:3.11-slim
+
+WORKDIR /dbt
+
+COPY requirements-dbt.txt /tmp/requirements-dbt.txt
+RUN pip install --no-cache-dir -r /tmp/requirements-dbt.txt
+
+ENTRYPOINT ["dbt"]

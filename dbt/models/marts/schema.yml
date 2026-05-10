@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: mart_asset_prices_daily
+    description: Daily price aggregates by exchange and trading pair.
+    columns:
+      - name: exchange
+        description: Exchange identifier from ccxt.
+        tests:
+          - not_null
+      - name: symbol
+        description: Trading pair symbol.
+        tests:
+          - not_null
+      - name: price_date
+        description: Aggregation date.
+        tests:
+          - not_null
+      - name: min_price
+        description: Minimum observed price for the day.
+        tests:
+          - not_null
+      - name: max_price
+        description: Maximum observed price for the day.
+        tests:
+          - not_null
+      - name: avg_price
+        description: Average observed price for the day.
+        tests:
+          - not_null
+      - name: records_count
+        description: Number of raw records included in the daily aggregate.
+        tests:
+          - not_null

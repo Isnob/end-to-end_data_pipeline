@@ -1,0 +1,12 @@
+crypto_pipeline:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: 127.0.0.1
+      port: 5433
+      user: user
+      password: password
+      dbname: crypto_db
+      schema: analytics
+      threads: 4

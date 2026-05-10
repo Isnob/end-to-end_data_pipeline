@@ -64,3 +64,18 @@ services:
       - ./logs:/opt/airflow/logs
     environment:
       <<: *airflow-env
+
+  dbt:
+    build:
+      context: .
+      dockerfile: Dockerfile.dbt
+    image: crypto-dbt:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./dbt:/dbt
+    profiles:
+      - tools
+    environment:
+      DBT_PROFILES_DIR: /dbt
