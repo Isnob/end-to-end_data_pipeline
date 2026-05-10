@@ -4,7 +4,7 @@ crypto_pipeline:
     dev:
       type: postgres
       host: 127.0.0.1
-      port: 5433
+      port: 5432
       user: user
       password: password
       dbname: crypto_db
