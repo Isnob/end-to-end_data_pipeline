@@ -1,2 +1,5 @@
+ssh-tunnels for airflow and psql:
+ssh -L 8080:localhost:8080 -L 5433:localhost:5433 bogdan@111.88.150.78
+
 enter db:
-docker exec -it $(docker ps -qf "name=db") psql -U user -d crypto_db
+psql -h 127.0.0.1 -p 5433 -U user -d crypto_db
