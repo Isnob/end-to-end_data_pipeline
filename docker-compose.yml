@@ -18,7 +18,7 @@ services:
     image: postgres:15
     environment:
       POSTGRES_DB: crypto_db
-      POSTGRES_USER: bogdan
+      POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     ports:
       - "127.0.0.1:5433:5432"
