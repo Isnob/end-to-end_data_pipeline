@@ -3,3 +3,9 @@ ssh -L 8080:localhost:8080 -L 5433:localhost:5433 bogdan@111.88.150.78
 
 enter db:
 psql -h 127.0.0.1 -p 5433 -U user -d crypto_db
+
+enter dbt docs:
+ssh -L 8080:localhost:8080 -L 5433:localhost:5433 -L 8081:localhost:8081 bogdan@111.88.150.78
+docker compose run --rm -p 127.0.0.1:8081:8081 dbt docs serve --host 0.0.0.0 --port 8081
+
+
