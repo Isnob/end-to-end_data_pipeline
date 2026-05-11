@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.python-version
+.venv/
+venv/
+env/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Airflow runtime files
+logs/
+airflow.db
+airflow.cfg
+webserver_config.py
+
+# dbt artifacts
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+dbt/.user.yml
+
+# Local scratch files
+test.sql
+*.tmp
+*.bak
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/
