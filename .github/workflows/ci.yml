@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - demo
+  pull_request:
+    branches:
+      - main
+      - demo
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate Docker Compose config
+        run: docker compose config
+
+      - name: Check DAG Python syntax
+        run: PYTHONDONTWRITEBYTECODE=1 python -m py_compile dags/main_dag.py
+
+      - name: Build dbt image
+        run: docker compose build dbt
+
+      - name: Parse dbt project
+        run: docker compose run --rm --no-deps dbt parse
