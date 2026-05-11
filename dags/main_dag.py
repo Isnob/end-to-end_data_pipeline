@@ -5,6 +5,8 @@ from airflow.operators.python import PythonOperator
 import ccxt
 import psycopg2
 from psycopg2.extras import Json
+from airflow.operators.bash import BashOperator
+
 
 default_args = {
     'owner': 'airflow',
@@ -95,6 +97,12 @@ with DAG(
     max_active_tasks=1,
 ) as dag:
     get_crypto_data = PythonOperator(
-        task_id='fetch_btc_price',
+        task_id='fetch_crypto_prices',
         python_callable=fetch_and_save
     )
+    run_dbt = BashOperator(
+        task_id='dbt_build',
+        bash_command='cd /opt/airflow/dbt && dbt build',
+    )
+
+    get_crypto_data >> run_dbt

@@ -48,6 +48,7 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
+      - ./dbt:/opt/airflow/dbt
     environment:
       <<: *airflow-env
     ports:
@@ -62,6 +63,7 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
+      - ./dbt:/opt/airflow/dbt
     environment:
       <<: *airflow-env
 
