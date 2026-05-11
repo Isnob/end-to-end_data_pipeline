@@ -11,7 +11,8 @@
 
 ### Статус проекта
 - [x] Этап 1: Ingestion (Python + CCXT + Postgres + Docker) — **Готово**
-- [ ] Этап 2: Orchestration (Airflow) — **В процессе**
+- [x] Этап 2: Orchestration (Airflow) — **Готово**
+- [x] Этап 3: Transformation (dbt) — **В процессе**
 
 ## Текущий стек
 - **Data Ingestion:** CCXT
@@ -52,7 +53,25 @@ airflow / airflow
 
 ## Текущий пайплайн
 
-DAG `crypto_ingestion_dag` запускается каждые 15 минут и сохраняет цены `BTC/USDT` и `ETH/USDT` с Binance в таблицу `raw_assets`.
+DAG `crypto_ingestion_dag` запускается каждые 15 минут:
+
+1. `fetch_crypto_prices` сохраняет цены криптовалютных пар с Binance в `public.raw_assets`.
+2. `dbt_build` запускает `dbt build`, обновляет модели в схеме `analytics` и выполняет dbt-тесты.
+
+Сейчас собираются пары:
+
+```text
+BTC/USDT
+ETH/USDT
+BNB/USDT
+SOL/USDT
+XRP/USDT
+ADA/USDT
+DOGE/USDT
+TON/USDT
+DOT/USDT
+LINK/USDT
+```
 
 Старый standalone ingestion из Этапа 1 перенесен в `legacy/`. Актуальная точка запуска проекта - Airflow через `docker compose`.
 
@@ -77,34 +96,46 @@ docker compose exec db psql -U user -d crypto_db
 
 ## Ручной запуск dbt
 
-dbt-проект находится в папке `dbt/`. Пока dbt запускается вручную, без Airflow.
-
-Установка dbt:
-
-```bash
-python3 -m pip install -r requirements-dbt.txt
-```
+dbt-проект находится в папке `dbt/`. Основной запуск выполняется из Airflow, но для разработки и проверки доступен отдельный dbt-контейнер.
 
 Проверка подключения:
 
 ```bash
-cd dbt
-dbt debug --profiles-dir .
+docker compose run --rm dbt debug
 ```
 
-Сборка моделей:
+Сборка моделей и запуск тестов:
 
 ```bash
-dbt run --profiles-dir .
+docker compose run --rm dbt build
 ```
 
-Запуск тестов:
+Генерация dbt docs:
 
 ```bash
-dbt test --profiles-dir .
+docker compose run --rm dbt docs generate
+docker compose run --rm -p 127.0.0.1:8081:8081 dbt docs serve --host 0.0.0.0 --port 8081
+```
+
+Для просмотра docs с локальной машины используется SSH-туннель:
+
+```bash
+ssh -N -L 8081:127.0.0.1:8081 bogdan@111.88.150.78
+```
+
+После этого документация доступна по адресу:
+
+```text
+http://127.0.0.1:8081
 ```
 
 Текущие dbt-модели:
 
-- `stg_asset_prices` - staging view поверх `public.raw_assets`
-- `mart_asset_prices_daily` - дневная аналитическая таблица по `exchange` и `symbol`
+- `stg_asset_prices` - staging view поверх `public.raw_assets` с дедупликацией по `exchange`, `symbol` и минуте `fetched_at`
+- `mart_asset_prices_daily` - incremental дневная аналитическая таблица по `exchange`, `symbol` и `price_date`
+
+## Ограничения ingestion
+
+Текущий ingestion собирает live snapshots через Binance ticker API. Pipeline не выполняет backfill: если сервер, Airflow или DAG были выключены, пропущенные интервалы не восстанавливаются.
+
+Дневная витрина агрегирует только фактически собранные наблюдения. Поэтому строгие проверки полноты временного ряда пока не используются.

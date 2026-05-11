@@ -29,7 +29,7 @@
 ### Что изучить:
 - [x] **Airflow Concepts:** Архитектура (Scheduler, Worker, Webserver).
 - [x] **DAGs:** Определение графов зависимостей.
-- [x] **Operators vs TaskFlow API:** Базовое использование PythonOperator.
+- [x] **Operators vs TaskFlow API:** Базовое использование PythonOperator и BashOperator.
 - [x] **Scheduling:** Cron-выражения и интервалы запуска.
 
 ### Задача:
@@ -38,6 +38,7 @@
 ### Результат:
 - [x] Автоматизированный пайплайн с логированием и retry.
 - [x] UI Airflow отображает запуски DAG `crypto_ingestion_dag`.
+- [x] DAG запускает `dbt build` после ingestion.
 - [x] Старый standalone ingestion перенесен в `legacy/`.
 
 ---
@@ -50,7 +51,8 @@
 - [x] **dbt (Data Build Tool):** Основы, Docker-запуск, подключение к PostgreSQL.
 - [x] **Методология:** Базовый слой Staging -> Marts.
 - [x] **SQL:** Первые модульные SQL-модели.
-- [ ] **Документация:** Генерация документации через dbt.
+- [x] **Документация:** Генерация документации через dbt.
+- [x] **Incremental models:** Обновление дневной витрины без полного пересчета всей истории.
 
 ### Задача:
 Подключить dbt к PostgreSQL. Написать модели, которые:
@@ -59,11 +61,14 @@
 
 ### Результат:
 - [x] dbt запускается вручную через Docker Compose.
+- [x] dbt запускается автоматически из Airflow через task `dbt_build`.
 - [x] Создана staging-модель `stg_asset_prices`.
 - [x] Создана mart-модель `mart_asset_prices_daily`.
 - [x] Добавлены базовые тесты источника и модели.
-- [ ] Сгенерирована и просмотрена dbt-документация.
-- [ ] Продуманы дедупликация и incremental-подход для роста объема данных.
+- [x] Сгенерирована и просмотрена dbt-документация.
+- [x] Добавлена дедупликация staging-слоя.
+- [x] `mart_asset_prices_daily` переведена на incremental materialization.
+- [x] Зафиксированы ограничения текущего ingestion: live snapshots без backfill.
 
 ---
 
