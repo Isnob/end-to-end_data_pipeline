@@ -102,7 +102,10 @@ with DAG(
     )
     run_dbt = BashOperator(
         task_id='dbt_build',
-        bash_command='cd /opt/airflow/dbt && dbt build --log-path /tmp/dbt_logs',
+        bash_command=(
+            'cd /opt/airflow/dbt && '
+            '/home/airflow/.local/bin/dbt build --log-path /tmp/dbt_logs'
+        ),
         env={'DBT_PROFILES_DIR': '/opt/airflow/dbt'},
     )
 
