@@ -32,10 +32,13 @@ jobs:
       - name: Build Airflow image
         run: docker compose build airflow-scheduler
 
+      - name: Prepare Airflow log directory
+        run: mkdir -p logs/scheduler && chmod -R 777 logs
+
       - name: Import Airflow DAG
         run: >
-          docker compose run --rm --no-deps airflow-scheduler
-          python -c "import sys; sys.path.insert(0, '/opt/airflow/dags'); import main_dag"
+          docker compose run --rm --no-deps --entrypoint python airflow-scheduler
+          -c "import sys; sys.path.insert(0, '/opt/airflow/dags'); import main_dag"
 
       - name: Build dbt image
         run: docker compose build dbt
