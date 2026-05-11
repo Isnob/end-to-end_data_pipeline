@@ -102,7 +102,8 @@ with DAG(
     )
     run_dbt = BashOperator(
         task_id='dbt_build',
-        bash_command='cd /opt/airflow/dbt && dbt build',
+        bash_command='cd /opt/airflow/dbt && dbt build --log-path /tmp/dbt_logs',
+        env={'DBT_PROFILES_DIR': '/opt/airflow/dbt'},
     )
 
     get_crypto_data >> run_dbt
