@@ -46,9 +46,75 @@ jobs:
       - name: Parse dbt project
         run: docker compose run --rm --no-deps dbt parse
 
-  deploy:
+  integration:
     runs-on: ubuntu-latest
     needs: validate
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start Postgres
+        run: docker compose up -d db
+
+      - name: Wait for Postgres
+        run: |
+          for i in {1..30}; do
+            if docker compose exec -T db pg_isready -U user -d crypto_db; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+
+      - name: Seed raw asset fixtures
+        run: |
+          docker compose exec -T db psql -U user -d crypto_db <<'SQL'
+          CREATE TABLE IF NOT EXISTS raw_assets (
+              id SERIAL PRIMARY KEY,
+              exchange TEXT NOT NULL,
+              symbol TEXT NOT NULL,
+              fetched_at TIMESTAMPTZ NOT NULL,
+              price NUMERIC NOT NULL,
+              raw_payload JSONB NOT NULL
+          );
+
+          INSERT INTO raw_assets (
+              exchange,
+              symbol,
+              fetched_at,
+              price,
+              raw_payload
+          )
+          VALUES
+              ('binance', 'BTC/USDT', '2026-05-11 10:00:05+00', 80000, '{"last": 80000}'::jsonb),
+              ('binance', 'BTC/USDT', '2026-05-11 10:00:35+00', 80100, '{"last": 80100}'::jsonb),
+              ('binance', 'ETH/USDT', '2026-05-11 10:00:10+00', 2500, '{"last": 2500}'::jsonb);
+          SQL
+
+      - name: Build dbt image
+        run: docker compose build dbt
+
+      - name: Run dbt build
+        run: docker compose run --rm dbt build
+
+      - name: Verify mart output
+        run: |
+          rows_count="$(
+            docker compose exec -T db psql -U user -d crypto_db -t -A -c \
+              "SELECT count(*) FROM analytics.mart_asset_prices_daily;"
+          )"
+          test "$rows_count" = "2"
+
+      - name: Stop services
+        if: always()
+        run: docker compose down -v
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - validate
+      - integration
     if: github.event_name == 'push' && github.ref == 'refs/heads/demo'
 
     steps:
