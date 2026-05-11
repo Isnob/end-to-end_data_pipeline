@@ -11,6 +11,27 @@ on:
       - demo
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      runtime: ${{ steps.filter.outputs.runtime }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect runtime changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            runtime:
+              - 'dags/**'
+              - 'dbt/**'
+              - 'docker-compose.yml'
+              - 'Dockerfile*'
+              - 'requirements*.txt'
+
   validate:
     runs-on: ubuntu-latest
 
@@ -113,9 +134,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs:
+      - changes
       - validate
       - integration
-    if: github.event_name == 'push' && github.ref == 'refs/heads/demo'
+    if: >
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/demo' &&
+      needs.changes.outputs.runtime == 'true'
 
     steps:
       - name: Deploy demo to server

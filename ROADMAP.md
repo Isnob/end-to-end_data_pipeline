@@ -44,7 +44,7 @@
 ---
 
 ## Этап 3: Трансформация и моделирование (dbt)
-**Статус: В процессе**
+**Статус: Завершено**
 **Цель:** Научиться превращать «мусор» в чистые аналитические витрины.
 
 ### Что изучить:
@@ -73,34 +73,46 @@
 ---
 
 ## Этап 4: Хранилище и Скорость (OLAP)
+**Статус: Следующий этап**
 **Цель:** Понять разницу между транзакционными (OLTP) и аналитическими (OLAP) БД.
 
 ### Что изучить:
 - [ ] **ClickHouse:** Архитектура, колоночное хранение.
 - [ ] **MergeTree:** Основной движок таблиц в ClickHouse.
-- [ ] **Data Transfer:** Как переливать данные из Postgres в ClickHouse (через Python или плагины).
+- [ ] **Data Transfer:** Как переливать очищенные факты из Postgres в ClickHouse.
+- [ ] **Views vs Materialized Views:** Сначала обычные view, затем materialized view для ускорения чтения.
 
 ### Задача:
-Добавить в `docker-compose` контейнер с ClickHouse. Настроить процесс переноса агрегированных данных (Marts) из PostgreSQL в ClickHouse.
+Добавить в `docker-compose` контейнер с ClickHouse. Настроить перенос `analytics.stg_asset_prices` из PostgreSQL в ClickHouse как fact-таблицу. Дневную аналитику считать уже в ClickHouse.
 
 ### Результат:
-- Система, способная мгновенно отдавать отчеты по миллионам строк.
-- Разделение: Postgres для накопления, ClickHouse для анализа.
+- [ ] ClickHouse запущен в Docker Compose.
+- [ ] Создана ClickHouse-таблица `fact_asset_prices` на движке MergeTree.
+- [ ] Настроен перенос очищенных фактов из PostgreSQL `analytics.stg_asset_prices`.
+- [ ] Создан обычный ClickHouse view `mart_asset_prices_daily`.
+- [ ] Результаты ClickHouse mart сверены с PostgreSQL/dbt mart.
+- [ ] Позже обычный view заменен на materialized view.
 
 ---
 
 ## Этап 5: Data Quality и CI/CD
+**Статус: В процессе**
 **Цель:** Обеспечение надежности данных и автоматизация проверок.
 
 ### Что изучить:
-- [ ] **Great Expectations:** Написание тестов для данных (Expectations).
-- [ ] **GitHub Actions:** Автоматизация пайплайнов (Linting, Testing).
+- [x] **GitHub Actions:** Автоматизация базовых проверок и деплоя.
+- [x] **Integration checks:** Проверка связки PostgreSQL + dbt на fixture-данных.
+- [ ] **Great Expectations:** Написание тестов для данных (Expectations), если dbt-тестов станет недостаточно.
 - [ ] **Data Contracts:** Базовое понимание контрактов данных.
 
 ### Задача:
-1. Написать тесты `Great Expectations`, проверяющие, что цена (`price`) не отрицательная и нет `NULL` в ключевых полях.
-2. Настроить GitHub Action, который запускает тесты dbt и линтеры при каждом `push` в репозиторий.
+1. Поддерживать GitHub Actions workflow, который проверяет Docker Compose, Airflow DAG import, dbt parse и dbt integration build.
+2. Автоматически деплоить ветку `demo` на сервер только после успешных проверок и только при runtime-изменениях.
+3. Позже расширить data quality слой, если появятся более строгие требования к данным.
 
 ### Результат:
-- Профессиональный репозиторий с автоматическими проверками качества.
-- Гарантия того, что сломанный код не попадет в продакшн.
+- [x] CI запускается при push и pull request.
+- [x] Добавлен integration job с PostgreSQL fixture data и `dbt build`.
+- [x] Добавлен автоматический deploy job для ветки `demo`.
+- [x] Deploy пропускается для documentation-only изменений.
+- [ ] Добавить branch protection, когда появится стабильная работа через PR/main.

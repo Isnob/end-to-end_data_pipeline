@@ -19,6 +19,7 @@
 - **Database:** PostgreSQL 15
 - **Orchestration:** Apache Airflow
 - **Transformation:** dbt
+- **CI/CD:** GitHub Actions
 - **Containerization:** Docker, Docker Compose
 
 ## Локальный запуск на сервере
@@ -53,11 +54,23 @@ airflow / airflow
 
 ## Deployment
 
-Ветка `demo` используется как deploy-ветка. После `push` в `demo` GitHub Actions запускает CI и, если проверки прошли успешно, автоматически обновляет сервер:
+Ветка `demo` используется как deploy-ветка. После `push` в `demo` GitHub Actions запускает CI и, если проверки прошли успешно, автоматически обновляет сервер только при runtime-изменениях:
 
 ```text
-push origin demo -> CI -> SSH deploy -> git pull --ff-only origin demo -> docker compose up -d --build
+push origin demo -> CI -> runtime changes check -> SSH deploy -> git pull --ff-only origin demo -> docker compose up -d --build
 ```
+
+Runtime-изменениями считаются изменения в:
+
+```text
+dags/**
+dbt/**
+docker-compose.yml
+Dockerfile*
+requirements*.txt
+```
+
+Изменения только в документации, например `README.md` или `ROADMAP.md`, проходят CI, но не запускают deploy.
 
 Для автоматического деплоя в GitHub repository secrets должны быть настроены:
 
@@ -68,6 +81,12 @@ SERVER_SSH_KEY=<private SSH key for deploy>
 ```
 
 Если CI падает, deploy job не запускается.
+
+CI workflow включает:
+
+- `validate` - проверка Docker Compose config, синтаксиса DAG, сборки Airflow/dbt images и dbt parse.
+- `integration` - поднимает PostgreSQL, загружает fixture-данные в `raw_assets`, запускает `dbt build` и проверяет результат mart.
+- `deploy` - обновляет сервер по SSH только после успешных `validate` и `integration`, только для `demo`, только при runtime-изменениях.
 
 ## Текущий пайплайн
 
