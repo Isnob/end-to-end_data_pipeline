@@ -51,6 +51,24 @@ http://localhost:8080
 airflow / airflow
 ```
 
+## Deployment
+
+Ветка `demo` используется как deploy-ветка. После `push` в `demo` GitHub Actions запускает CI и, если проверки прошли успешно, автоматически обновляет сервер:
+
+```text
+push origin demo -> CI -> SSH deploy -> git pull --ff-only origin demo -> docker compose up -d --build
+```
+
+Для автоматического деплоя в GitHub repository secrets должны быть настроены:
+
+```text
+SERVER_HOST=111.88.150.78
+SERVER_USER=bogdan
+SERVER_SSH_KEY=<private SSH key for deploy>
+```
+
+Если CI падает, deploy job не запускается.
+
 ## Текущий пайплайн
 
 DAG `crypto_ingestion_dag` запускается каждые 15 минут:
