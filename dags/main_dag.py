@@ -1,11 +1,15 @@
 from datetime import datetime, timedelta, timezone
+import sys
 
-from airflow import DAG
-from airflow.operators.python import PythonOperator
-import ccxt
-import psycopg2
-from psycopg2.extras import Json
-from airflow.operators.bash import BashOperator
+from airflow import DAG # type: ignore
+from airflow.operators.python import PythonOperator # type: ignore
+import ccxt # type: ignore
+import psycopg2 # type: ignore
+from psycopg2.extras import Json # type: ignore
+from airflow.operators.bash import BashOperator # type: ignore
+
+
+sys.path.append('/opt/airflow/scripts')
 
 
 default_args = {
@@ -87,6 +91,12 @@ def fetch_and_save():
                 print(f"Saved {symbol} price from {exchange.id}: {price}")
 
 
+def sync_to_clickhouse():
+    from sync_postgres_to_clickhouse import sync_asset_prices_to_clickhouse
+
+    sync_asset_prices_to_clickhouse()
+
+
 with DAG(
     'crypto_ingestion_dag',
     default_args=default_args,
@@ -105,5 +115,9 @@ with DAG(
         bash_command='cd /opt/airflow/dbt && /home/airflow/.local/bin/dbt build',
         env={'DBT_PROFILES_DIR': '/opt/airflow/dbt'},
     )
+    sync_clickhouse = PythonOperator(
+        task_id='sync_clickhouse',
+        python_callable=sync_to_clickhouse,
+    )
 
-    get_crypto_data >> run_dbt
+    get_crypto_data >> run_dbt >> sync_clickhouse

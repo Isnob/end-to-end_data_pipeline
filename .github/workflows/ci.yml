@@ -27,7 +27,9 @@ jobs:
           filters: |
             runtime:
               - 'dags/**'
+              - 'scripts/**'
               - 'dbt/**'
+              - 'clickhouse/**'
               - 'docker-compose.yml'
               - 'Dockerfile*'
               - 'requirements*.txt'
@@ -153,5 +155,6 @@ jobs:
           script: |
             cd ~/end-to-end_data_pipeline
             git pull --ff-only origin demo
+            docker compose up --build --force-recreate clickhouse-migrate
             docker compose up -d --build
             docker compose ps
