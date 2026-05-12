@@ -73,14 +73,14 @@
 ---
 
 ## Этап 4: Хранилище и Скорость (OLAP)
-**Статус: В процессе**
+**Статус: Завершено**
 **Цель:** Понять разницу между транзакционными (OLTP) и аналитическими (OLAP) БД.
 
 ### Что изучить:
-- [ ] **ClickHouse:** Архитектура, колоночное хранение.
-- [ ] **MergeTree:** Основной движок таблиц в ClickHouse.
-- [ ] **Data Transfer:** Как переливать очищенные факты из Postgres в ClickHouse.
-- [ ] **Views vs Materialized Views:** Сначала обычные view, затем materialized view для ускорения чтения.
+- [x] **ClickHouse:** Архитектура, колоночное хранение.
+- [x] **MergeTree:** Основной движок таблиц в ClickHouse.
+- [x] **Data Transfer:** Как переливать очищенные факты из Postgres в ClickHouse.
+- [x] **Materialized Views:** Инкрементальное обновление аналитической витрины через `AggregatingMergeTree`.
 
 ### Задача:
 Добавить в `docker-compose` контейнер с ClickHouse. Настроить перенос `analytics.stg_asset_prices` из PostgreSQL в ClickHouse как fact-таблицу. Дневную аналитику считать уже в ClickHouse.
@@ -90,9 +90,9 @@
 - [x] Добавлены versioned SQL migrations для ClickHouse.
 - [x] Создана ClickHouse-таблица `fact_asset_prices` на движке MergeTree.
 - [x] Настроен перенос очищенных фактов из PostgreSQL `analytics.stg_asset_prices`.
-- [x] Создан обычный ClickHouse view `mart_asset_prices_daily`.
-- [ ] Результаты ClickHouse mart сверены с PostgreSQL/dbt mart.
-- [ ] Позже обычный view заменен на materialized view.
+- [x] Создана materialized-схема daily mart: `mv_mart_asset_prices_daily` -> `mart_asset_prices_daily_agg` -> `mart_asset_prices_daily`.
+- [x] Проверено, что ClickHouse mart наполняется после успешного DAG run.
+- [x] Обычный read view больше не считает mart напрямую из `fact_asset_prices`.
 
 ---
 
