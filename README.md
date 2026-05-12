@@ -45,7 +45,7 @@ analytics.fact_asset_prices
   -> analytics.mart_asset_prices_daily
 ```
 
-`mart_asset_prices_daily` - read view для аналитических запросов. Он больше не считает дневную витрину напрямую из fact-таблицы: новые данные попадают в агрегатные состояния через materialized view.
+`mart_asset_prices_daily` - read view для аналитических запросов. Он не считает дневную витрину напрямую из fact-таблицы: новые данные попадают в агрегатные состояния через materialized view.
 
 ## Tech Stack
 
