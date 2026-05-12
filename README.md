@@ -1,14 +1,16 @@
 # End-to-End Crypto Data Pipeline
 
+[English version](./README.en.md)
+
 Пет-проект по data engineering: автоматический сбор live-цен криптовалют, обработка данных через dbt, оркестрация в Airflow, хранение raw/staging слоя в PostgreSQL и аналитический OLAP-слой в ClickHouse.
 
 Проект показывает полный путь данных:
 
 ```text
-Binance API -> Airflow -> PostgreSQL -> dbt -> ClickHouse -> analytical mart
+Binance API -> Airflow -> PostgreSQL -> dbt -> ClickHouse -> аналитическая витрина
 ```
 
-## What Is Built
+## Что реализовано
 
 - Ingestion каждые 15 минут через Airflow DAG.
 - Raw-данные сохраняются в PostgreSQL.
@@ -18,7 +20,7 @@ Binance API -> Airflow -> PostgreSQL -> dbt -> ClickHouse -> analytical mart
 - GitHub Actions проверяет проект и автоматически деплоит ветку `demo` на сервер.
 - Все сервисы работают в Docker Compose и закрыты за SSH-туннелями.
 
-## Architecture
+## Архитектура
 
 ```text
 crypto_ingestion_dag
@@ -47,20 +49,20 @@ analytics.fact_asset_prices
 
 `mart_asset_prices_daily` - read view для аналитических запросов. Он не считает дневную витрину напрямую из fact-таблицы: новые данные попадают в агрегатные состояния через materialized view.
 
-## Tech Stack
+## Стек
 
-| Layer | Technology |
+| Слой | Технологии |
 |---|---|
 | Ingestion | Python, CCXT |
-| Orchestration | Apache Airflow |
-| Raw/Staging Storage | PostgreSQL 15 |
-| Transformations | dbt |
-| OLAP Storage | ClickHouse |
-| Containers | Docker, Docker Compose |
+| Оркестрация | Apache Airflow |
+| Raw/Staging хранилище | PostgreSQL 15 |
+| Трансформации | dbt |
+| OLAP-хранилище | ClickHouse |
+| Контейнеризация | Docker, Docker Compose |
 | CI/CD | GitHub Actions |
-| Deployment | SSH deploy to VPS |
+| Деплой | SSH deploy на VPS |
 
-## Screenshots
+## Скриншоты
 
 ### Airflow DAG
 
@@ -68,13 +70,13 @@ Airflow управляет полным пайплайном: ingestion, dbt bui
 
 ![Airflow DAG graph](docs/screenshots/01_airflow_dag_graph.png)
 
-### Successful Pipeline Run
+### Успешный запуск пайплайна
 
 Все задачи DAG завершаются успешно: данные собраны, dbt-модели обновлены, ClickHouse синхронизирован.
 
 ![Airflow successful run](docs/screenshots/02_airflow_successful_run.png)
 
-### PostgreSQL Raw Data
+### Raw-данные в PostgreSQL
 
 Raw-слой хранит live snapshots цен, полученные из Binance через CCXT.
 
@@ -86,13 +88,13 @@ dbt documentation показывает lineage моделей и структу�
 
 ![dbt docs lineage](docs/screenshots/04_dbt_docs_lineage.png)
 
-### ClickHouse Schema
+### Схема ClickHouse
 
 ClickHouse содержит fact table, materialized view, aggregate table и read view.
 
 ![ClickHouse tables](docs/screenshots/05_clickhouse_tables.png)
 
-### ClickHouse Daily Mart
+### Daily mart в ClickHouse
 
 Финальная дневная витрина доступна для аналитических запросов в ClickHouse.
 
@@ -104,7 +106,7 @@ GitHub Actions запускает validation, integration checks и deploy.
 
 ![GitHub Actions deploy](docs/screenshots/07_github_actions_deploy.png)
 
-## Data Model
+## Модель данных
 
 ### PostgreSQL
 
@@ -129,7 +131,7 @@ CREATE TABLE raw_assets (
 
 `stg_asset_prices` очищает raw-данные и дедуплицирует наблюдения по `exchange`, `symbol` и минуте `fetched_at`.
 
-`mart_asset_prices_daily` в PostgreSQL остается dbt-витриной для сравнения и учебной части dbt.
+`mart_asset_prices_daily` в PostgreSQL остается dbt-витриной для демонстрации dbt incremental models.
 
 ### ClickHouse
 
@@ -164,7 +166,7 @@ first_fetched_at
 last_fetched_at
 ```
 
-## Repository Structure
+## Структура репозитория
 
 ```text
 .github/workflows/ci.yml              CI/CD pipeline
@@ -180,12 +182,12 @@ Dockerfile.dbt                        dbt image
 ROADMAP.md                            Project roadmap
 ```
 
-## Deployment Flow
+## Схема деплоя
 
-The `demo` branch is used as the deployment branch.
+Ветка `demo` используется как deploy-ветка.
 
 ```text
-push to demo
+push в demo
   -> GitHub Actions validate
   -> GitHub Actions integration
   -> SSH deploy
@@ -194,7 +196,7 @@ push to demo
   -> docker compose up -d --build
 ```
 
-Deploy runs only for runtime changes:
+Deploy запускается только для runtime-изменений:
 
 ```text
 dags/**
@@ -206,13 +208,13 @@ Dockerfile*
 requirements*.txt
 ```
 
-Documentation-only changes pass CI but do not trigger deploy.
+Документационные изменения проходят CI, но не запускают deploy.
 
-## Access Through SSH Tunnels
+## Доступ через SSH-туннели
 
-Services are bound to `127.0.0.1` on the server. They are not exposed directly to the internet.
+Сервисы привязаны к `127.0.0.1` на сервере и не открыты напрямую в интернет.
 
-Common tunnel from local machine:
+Общий туннель с локальной машины:
 
 ```bash
 ssh -N \
@@ -224,9 +226,9 @@ ssh -N \
   bogdan@111.88.150.78
 ```
 
-Available services after tunnel:
+Доступные сервисы после туннеля:
 
-| Service | URL / Connection |
+| Сервис | URL / подключение |
 |---|---|
 | Airflow | `http://127.0.0.1:8080` |
 | dbt docs | `http://127.0.0.1:8081` |
@@ -235,7 +237,7 @@ Available services after tunnel:
 | ClickHouse Play UI | `http://127.0.0.1:8123/play` |
 | ClickHouse native | `127.0.0.1:9000` |
 
-Credentials used in the pet-project environment:
+Учебные доступы:
 
 ```text
 Airflow:    airflow / airflow
@@ -243,46 +245,46 @@ PostgreSQL: user / password
 ClickHouse: user / password
 ```
 
-## Useful Commands
+## Полезные команды
 
-Start services:
+Запустить сервисы:
 
 ```bash
 docker compose up -d --build
 ```
 
-Check containers:
+Проверить контейнеры:
 
 ```bash
 docker compose ps
 ```
 
-Run dbt manually:
+Запустить dbt вручную:
 
 ```bash
 docker compose run --rm dbt build
 ```
 
-Generate and serve dbt docs:
+Сгенерировать и поднять dbt docs:
 
 ```bash
 docker compose run --rm dbt docs generate
 docker compose run --rm -p 127.0.0.1:8081:8081 dbt docs serve --host 0.0.0.0 --port 8081
 ```
 
-Apply ClickHouse migrations:
+Применить ClickHouse migrations:
 
 ```bash
 docker compose up --build --force-recreate clickhouse-migrate
 ```
 
-Connect to PostgreSQL:
+Подключиться к PostgreSQL:
 
 ```bash
 psql -h 127.0.0.1 -p 5433 -U user -d crypto_db
 ```
 
-Connect to ClickHouse with local client:
+Подключиться к ClickHouse через локальный клиент:
 
 ```bash
 clickhouse-client \
@@ -293,13 +295,13 @@ clickhouse-client \
   --database analytics
 ```
 
-Open ClickHouse Play UI:
+Открыть ClickHouse Play UI:
 
 ```text
 http://127.0.0.1:8123/play
 ```
 
-## Verification Queries
+## Проверочные запросы
 
 PostgreSQL raw:
 
@@ -326,7 +328,7 @@ ORDER BY fetched_at DESC
 LIMIT 20;
 ```
 
-ClickHouse objects:
+Объекты ClickHouse:
 
 ```sql
 SELECT
@@ -355,13 +357,13 @@ ORDER BY price_date DESC, symbol
 LIMIT 20;
 ```
 
-## Current Limitations
+## Ограничения
 
-- Ingestion collects live snapshots only.
-- There is no historical backfill for periods when Airflow/server was down.
-- Credentials are intentionally simple for a pet-project environment.
-- Services are protected by localhost bindings and SSH tunnels, not by production-grade secret management.
+- Ingestion собирает только live snapshots.
+- Нет historical backfill за периоды, когда сервер или Airflow были выключены.
+- Пароли намеренно простые, потому что это пет-проект.
+- Сервисы защищены localhost bindings и SSH-туннелями, а не production-grade secret management.
 
 ## Roadmap
 
-The main planned stages are tracked in [ROADMAP.md](./ROADMAP.md). Current project state: ingestion, orchestration, dbt, CI/CD and ClickHouse OLAP layer are implemented.
+Основные этапы проекта описаны в [ROADMAP.md](./ROADMAP.md). Текущий статус: ingestion, orchestration, dbt, CI/CD и ClickHouse OLAP layer реализованы.
