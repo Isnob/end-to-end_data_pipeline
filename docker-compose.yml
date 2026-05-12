@@ -43,6 +43,17 @@ services:
       timeout: 5s
       retries: 10
 
+  clickhouse-migrate:
+    image: clickhouse/clickhouse-server:24.8
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    volumes:
+      - ./clickhouse:/clickhouse:ro
+    profiles:
+      - tools
+    entrypoint: ["/bin/sh", "/clickhouse/migrate.sh"]
+
   airflow-init:
     <<: *airflow-image
     # Команда инициализации: создает базу и юзера airflow/airflow

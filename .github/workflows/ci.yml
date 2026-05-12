@@ -28,6 +28,7 @@ jobs:
             runtime:
               - 'dags/**'
               - 'dbt/**'
+              - 'clickhouse/**'
               - 'docker-compose.yml'
               - 'Dockerfile*'
               - 'requirements*.txt'
@@ -154,4 +155,5 @@ jobs:
             cd ~/end-to-end_data_pipeline
             git pull --ff-only origin demo
             docker compose up -d --build
+            docker compose run --rm clickhouse-migrate
             docker compose ps

@@ -13,7 +13,7 @@
 - [x] Этап 1: Ingestion (Python + CCXT + Postgres + Docker) — **Готово**
 - [x] Этап 2: Orchestration (Airflow) — **Готово**
 - [x] Этап 3: Transformation (dbt) — **Готово**
-- [ ] Этап 4: OLAP (ClickHouse) — **Следующий этап**
+- [ ] Этап 4: OLAP (ClickHouse) — **В процессе**
 - [x] Этап 5: Data Quality и CI/CD — **Базовая автоматизация готова**
 
 ## Текущий стек
@@ -59,7 +59,7 @@ airflow / airflow
 Ветка `demo` используется как deploy-ветка. После `push` в `demo` GitHub Actions запускает CI и, если проверки прошли успешно, автоматически обновляет сервер только при runtime-изменениях:
 
 ```text
-push origin demo -> CI -> runtime changes check -> SSH deploy -> git pull --ff-only origin demo -> docker compose up -d --build
+push origin demo -> CI -> runtime changes check -> SSH deploy -> git pull --ff-only origin demo -> docker compose up -d --build -> clickhouse migrations
 ```
 
 Runtime-изменениями считаются изменения в:
@@ -67,6 +67,7 @@ Runtime-изменениями считаются изменения в:
 ```text
 dags/**
 dbt/**
+clickhouse/**
 docker-compose.yml
 Dockerfile*
 requirements*.txt
@@ -198,6 +199,26 @@ Ok.
 
 ```bash
 ssh -L 8123:localhost:8123 bogdan@111.88.150.78
+```
+
+Схема ClickHouse хранится в versioned SQL migrations:
+
+```text
+clickhouse/migrations/
+```
+
+Применить миграции вручную:
+
+```bash
+docker compose run --rm clickhouse-migrate
+```
+
+Миграции написаны через `CREATE ... IF NOT EXISTS`, поэтому команда проверяет наличие базы, таблиц и view и создает их, если они отсутствуют. При автоматическом deploy эта команда запускается после `docker compose up -d --build`.
+
+Проверка созданных объектов:
+
+```bash
+docker compose exec clickhouse clickhouse-client --query "SHOW TABLES FROM analytics"
 ```
 
 ## Ограничения ingestion

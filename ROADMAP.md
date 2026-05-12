@@ -73,7 +73,7 @@
 ---
 
 ## Этап 4: Хранилище и Скорость (OLAP)
-**Статус: Следующий этап**
+**Статус: В процессе**
 **Цель:** Понять разницу между транзакционными (OLTP) и аналитическими (OLAP) БД.
 
 ### Что изучить:
@@ -86,10 +86,11 @@
 Добавить в `docker-compose` контейнер с ClickHouse. Настроить перенос `analytics.stg_asset_prices` из PostgreSQL в ClickHouse как fact-таблицу. Дневную аналитику считать уже в ClickHouse.
 
 ### Результат:
-- [ ] ClickHouse запущен в Docker Compose.
-- [ ] Создана ClickHouse-таблица `fact_asset_prices` на движке MergeTree.
+- [x] ClickHouse запущен в Docker Compose.
+- [x] Добавлены versioned SQL migrations для ClickHouse.
+- [x] Создана ClickHouse-таблица `fact_asset_prices` на движке MergeTree.
 - [ ] Настроен перенос очищенных фактов из PostgreSQL `analytics.stg_asset_prices`.
-- [ ] Создан обычный ClickHouse view `mart_asset_prices_daily`.
+- [x] Создан обычный ClickHouse view `mart_asset_prices_daily`.
 - [ ] Результаты ClickHouse mart сверены с PostgreSQL/dbt mart.
 - [ ] Позже обычный view заменен на materialized view.
 
