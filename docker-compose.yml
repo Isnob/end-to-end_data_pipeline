@@ -28,6 +28,19 @@ services:
       timeout: 5s
       retries: 10
 
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    ports:
+      - "127.0.0.1:8123:8123"
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    healthcheck:
+      test: ["CMD-SHELL", "clickhouse-client --query 'SELECT 1'"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   airflow-init:
     <<: *airflow-image
     # Команда инициализации: создает базу и юзера airflow/airflow
@@ -83,3 +96,6 @@ services:
       DBT_PROFILES_DIR: /dbt
     ports:
       - "127.0.0.1:8081:8081"
+
+volumes:
+  clickhouse_data:

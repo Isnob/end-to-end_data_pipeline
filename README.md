@@ -173,6 +173,33 @@ http://127.0.0.1:8081
 - `stg_asset_prices` - staging view поверх `public.raw_assets` с дедупликацией по `exchange`, `symbol` и минуте `fetched_at`
 - `mart_asset_prices_daily` - incremental дневная аналитическая таблица по `exchange`, `symbol` и `price_date`
 
+## ClickHouse
+
+ClickHouse добавлен как OLAP-слой для следующего этапа. HTTP и native-порты опубликованы только на localhost сервера:
+
+```text
+127.0.0.1:8123:8123
+127.0.0.1:9000:9000
+```
+
+Проверка доступности на сервере:
+
+```bash
+curl http://localhost:8123/ping
+```
+
+Ожидаемый ответ:
+
+```text
+Ok.
+```
+
+Для доступа с локальной машины используется SSH-туннель:
+
+```bash
+ssh -L 8123:localhost:8123 bogdan@111.88.150.78
+```
+
 ## Ограничения ingestion
 
 Текущий ingestion собирает live snapshots через Binance ticker API. Pipeline не выполняет backfill: если сервер, Airflow или DAG были выключены, пропущенные интервалы не восстанавливаются.
