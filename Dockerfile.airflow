@@ -8,4 +8,4 @@ RUN apt-get update \
 
 USER airflow
 
-RUN pip install --no-cache-dir ccxt psycopg2-binary dbt-postgres
+RUN pip install --no-cache-dir ccxt psycopg2-binary dbt-postgres clickhouse-connect

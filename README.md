@@ -59,13 +59,14 @@ airflow / airflow
 Ветка `demo` используется как deploy-ветка. После `push` в `demo` GitHub Actions запускает CI и, если проверки прошли успешно, автоматически обновляет сервер только при runtime-изменениях:
 
 ```text
-push origin demo -> CI -> runtime changes check -> SSH deploy -> git pull --ff-only origin demo -> docker compose up -d --build -> clickhouse migrations
+push origin demo -> CI -> runtime changes check -> SSH deploy -> git pull --ff-only origin demo -> clickhouse migrations -> docker compose up -d --build
 ```
 
 Runtime-изменениями считаются изменения в:
 
 ```text
 dags/**
+scripts/**
 dbt/**
 clickhouse/**
 docker-compose.yml
@@ -97,6 +98,7 @@ DAG `crypto_ingestion_dag` запускается каждые 15 минут:
 
 1. `fetch_crypto_prices` сохраняет цены криптовалютных пар с Binance в `public.raw_assets`.
 2. `dbt_build` запускает `dbt build`, обновляет модели в схеме `analytics` и выполняет dbt-тесты.
+3. `sync_clickhouse` переносит новые очищенные строки из `analytics.stg_asset_prices` в ClickHouse `analytics.fact_asset_prices`.
 
 Сейчас собираются пары:
 
@@ -219,6 +221,15 @@ docker compose run --rm clickhouse-migrate
 
 ```bash
 docker compose exec clickhouse clickhouse-client --query "SHOW TABLES FROM analytics"
+```
+
+Проверка количества перенесенных фактов:
+
+```bash
+docker compose exec clickhouse clickhouse-client \
+  --user user \
+  --password password \
+  --query "SELECT count() FROM analytics.fact_asset_prices"
 ```
 
 ## Ограничения ingestion

@@ -89,7 +89,7 @@
 - [x] ClickHouse запущен в Docker Compose.
 - [x] Добавлены versioned SQL migrations для ClickHouse.
 - [x] Создана ClickHouse-таблица `fact_asset_prices` на движке MergeTree.
-- [ ] Настроен перенос очищенных фактов из PostgreSQL `analytics.stg_asset_prices`.
+- [x] Настроен перенос очищенных фактов из PostgreSQL `analytics.stg_asset_prices`.
 - [x] Создан обычный ClickHouse view `mart_asset_prices_daily`.
 - [ ] Результаты ClickHouse mart сверены с PostgreSQL/dbt mart.
 - [ ] Позже обычный view заменен на materialized view.
