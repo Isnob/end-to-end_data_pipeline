@@ -22,6 +22,8 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - "127.0.0.1:5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U user -d crypto_db" ]
       interval: 5s
@@ -98,4 +100,5 @@ services:
       - "127.0.0.1:8081:8081"
 
 volumes:
+  postgres_data:
   clickhouse_data:

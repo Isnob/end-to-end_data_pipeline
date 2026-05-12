@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta, timezone
 
-from airflow import DAG
-from airflow.operators.python import PythonOperator
-import ccxt
-import psycopg2
-from psycopg2.extras import Json
-from airflow.operators.bash import BashOperator
+from airflow import DAG # type: ignore
+from airflow.operators.python import PythonOperator # type: ignore
+import ccxt # type: ignore
+import psycopg2 # type: ignore
+from psycopg2.extras import Json # type: ignore
+from airflow.operators.bash import BashOperator # type: ignore
 
 
 default_args = {
