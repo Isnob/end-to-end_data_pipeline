@@ -12,7 +12,9 @@
 ### Статус проекта
 - [x] Этап 1: Ingestion (Python + CCXT + Postgres + Docker) — **Готово**
 - [x] Этап 2: Orchestration (Airflow) — **Готово**
-- [x] Этап 3: Transformation (dbt) — **В процессе**
+- [x] Этап 3: Transformation (dbt) — **Готово**
+- [ ] Этап 4: OLAP (ClickHouse) — **Следующий этап**
+- [x] Этап 5: Data Quality и CI/CD — **Базовая автоматизация готова**
 
 ## Текущий стек
 - **Data Ingestion:** CCXT
